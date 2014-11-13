@@ -1,23 +1,34 @@
+/*
+ Remote Control Firmware V1
+ 
+ License: CC BY-SA 3.0: Creative Commons Share-alike 3.0. Feel free 
+ to use and abuse this code however you'd like. If you find it useful
+ please attribute, and SHARE-ALIKE!
+ 
+ Created November 2013
+ by Jonathan Ruiz de Garibay
+ 
+ */
+
 #define PULSE_A          2
 #define PULSE_B          3
 #define PULSE_C          4
-#define LED_GREEN        6
-#define LED_RED          7
+#define LED_RED          10
+#define LED_GREEN        11
 #define BATTERY_SENSOR   A0
 
-#define MIN_BATTERY      200
+#define MIN_BATTERY      425
 
-#define GROUP    "02"
-#define PASSWORD "AB" 
+#define GROUP    "00"
 
 int state = 0;
 
 void setup() {
 
   Serial.begin(9600);
-  pinMode(PULSE_A, INPUT_PULLUP);
-  pinMode(PULSE_B, INPUT_PULLUP);
-  pinMode(PULSE_C, INPUT_PULLUP);
+  pinMode(PULSE_A, INPUT);
+  pinMode(PULSE_B, INPUT);
+  pinMode(PULSE_C, INPUT);
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_RED, OUTPUT);
   Serial.println("Start Remote Control Application");
@@ -31,7 +42,7 @@ void loop() {
     digitalWrite(LED_GREEN, HIGH);
     digitalWrite(LED_RED, LOW);
   }
-    else
+  else
   {
     digitalWrite(LED_GREEN, LOW);
     digitalWrite(LED_RED, HIGH);
@@ -41,7 +52,6 @@ void loop() {
       state = 1;
       Serial.print(';');
       Serial.print(GROUP);
-      Serial.print(PASSWORD);
       Serial.print('A');
       Serial.println('?');
     }
@@ -51,7 +61,6 @@ void loop() {
       state = 2;
       Serial.print(';');
       Serial.print(GROUP);
-      Serial.print(PASSWORD);
       Serial.print('B');
       Serial.println('?');
     }
@@ -61,7 +70,6 @@ void loop() {
       state = 3;
       Serial.print(';');
       Serial.print(GROUP);
-      Serial.print(PASSWORD);
       Serial.print('C');
       Serial.println('?');
     }
@@ -70,3 +78,4 @@ void loop() {
     state = 0;
   delay(20);  
 }
+
